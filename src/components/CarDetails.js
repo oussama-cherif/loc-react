@@ -1,8 +1,16 @@
 import React from 'react'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 
+const CarDetails = ({ car, setCars }) => {
+    const { user } = useAuthContext()
 
-const CarDetails = ({ car }) => {
+    const fetchCars = async () => {
+        const response = await fetch('http://localhost:3500/cars')
+        const json = await response.json()
+        setCars(json)
+    }
+
     const handleClick = async () => {
         const response = await fetch(`http://localhost:3500/cars`, 
         {
@@ -17,6 +25,7 @@ const CarDetails = ({ car }) => {
         
         if (response.ok) {
           console.log(json)
+          fetchCars()
         }
       }
     
@@ -29,7 +38,7 @@ const CarDetails = ({ car }) => {
             <p>Matricule: {car.matricule}</p>
             <p>Kilométrage: {car.km}</p>
             </div>
-            <button className="admin-button delete-button" onClick={handleClick}>Supprimer</button>
+            {user?.role === "admin" &&<button className="admin-button delete-button" onClick={handleClick}>Supprimer</button>}
         </div>
     )
 }

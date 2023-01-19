@@ -24,7 +24,11 @@ const AddCarForm = () => {
                   'Content-Type': 'application/json'
               }
           }
-          const body = JSON.stringify(formData)
+          const body = JSON.stringify({
+            ...formData,
+            km: parseInt(formData.km)
+          });
+          console.log(body)
           await axios.post('http://localhost:3500/cars', body, config)
           .then(res => {
               console.log(res.data)

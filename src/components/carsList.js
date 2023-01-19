@@ -21,7 +21,7 @@ const CarsList = () => {
     return (
         <div className="cars">
             {cars && cars.map((car) => (
-                <CarDetails key={car._id} car={car}/>
+                <CarDetails key={car._id} car={car} setCars={setCars}/>
             ))}
         </div>
     )
