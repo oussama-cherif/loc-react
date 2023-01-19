@@ -1,20 +1,27 @@
-import { Routes, Route } from 'react-router-dom'
+import {Routes, Route, Navigate } from 'react-router-dom'
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
-import DashLayout from './components/DashLayout';
+import Dashboard from './components/Dashboard';
 import AddCarForm from './components/AddCarForm';
+import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
+  const { user } = useAuthContext()
+ 
   return (
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home />}/>
-        <Route path="login" element={<Login />}/>
-        <Route path="signup" element={<Signup />}/>
-
-        <Route path ="dash" element={<DashLayout />}>
+        <Route path="login" 
+              element={!user ? <Login /> : <Navigate to="/" />} />
+            
+         <Route path="signup" 
+              element={!user ? <Signup /> : <Navigate to="/" />}  />
+           
+        <Route path ="dash"
+              element={user?.role==="admin" && <Dashboard />}>
           <Route path="add" element={<AddCarForm />} />
         </Route>
 

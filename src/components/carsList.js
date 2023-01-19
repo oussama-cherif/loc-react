@@ -5,6 +5,7 @@ import CarDetails from './CarDetails'
 const CarsList = () => {
     const [cars, setCars] = useState([])
 
+
     useEffect(() => {
         const fetchCars = async () => {
             try {
@@ -20,7 +21,7 @@ const CarsList = () => {
     return (
         <div className="cars">
             {cars && cars.map((car) => (
-                <CarDetails key={car._id} car={car} />
+                <CarDetails key={car._id} car={car}/>
             ))}
         </div>
     )
