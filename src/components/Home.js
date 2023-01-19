@@ -1,10 +1,11 @@
 import React from 'react'
+import CarsList from './CarsList'
 
 const Home = () => {
   return (
-    <div>
-
-    </div>
+  <div className="home">
+    <CarsList />
+  </div>
   )
 }
 
